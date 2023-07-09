@@ -1,0 +1,26 @@
+.menu {
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+    border: none;
+    position: relative;
+    outline: none;
+    padding: 0;
+    margin-right: 20px;
+    background-color: transparent;
+    display: none;
+}
+
+.menu:hover {
+    opacity: 0.6;
+}
+
+.menu_active {
+    height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .menu {
+        display: block;
+    }
+}
