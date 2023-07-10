@@ -83,13 +83,11 @@ function App() {
     function handleLoginSubmit(evt) {
         evt.preventDefault();
         Authorisation.login(formLoginValue.email, formLoginValue.password)
-            .then((res) => {
-                if (res.token) {
+            .then(() => {
                     setFormLoginValue({ email: '', password: '' });
                     setEmail(formLoginValue.email);
                     handleLogin();
                     navigate('/');
-                }
             })
             .catch((err) => {
                 setIsSuccess(false);
