@@ -3,8 +3,9 @@ const BASE_URL = 'https://mesto.chashchinavera.nomoreparties.sbs';
 export const register = (email, password) => {
     return fetch(`${BASE_URL}/signup`, {
         method: "POST",
+        credentials: 'include',
         headers: {
-            'Accept': "application/json",
+            Accept: "application/json",
             "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
@@ -17,7 +18,7 @@ export const login = (email, password) => {
     return fetch(`${BASE_URL}/signin`, {
         method: "POST",
         headers: {
-            'Accept': "application/json",
+            Accept: "application/json",
             "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),

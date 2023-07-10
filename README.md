@@ -7,7 +7,7 @@
 
 ## Ссылки на проект
 
-IP-адрес: 51.250.85.253
+IP-адрес: 62.84.118.74
 
 Frontend:  https://mesto.chashchinavv.nomoredomains.work/
 
