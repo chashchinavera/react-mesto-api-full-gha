@@ -1,6 +1,6 @@
 const allowedCors = [
-  'https://mesto.chashchinavera.nomoreparties.sbs',
-  'http://mesto.chashchinavera.nomoredomains.sbs',
+  'https://mesto.chashchinavv.nomoredomains.work/',
+  'http://mesto.chashchinavv.nomoredomains.work/',
   'http://localhost:3000',
 ];
 
