@@ -17,7 +17,7 @@ const getUsers = (req, res, next) => {
 };
 
 const getUserById = (req, res, next) => {
-  userModel.findById(req.params.user_id)
+  userModel.findById(req.params.userId)
     .then((user) => sendUser(res, user))
     .catch((err) => {
       if (err instanceof CastError) {
@@ -59,12 +59,13 @@ const createUser = (req, res, next) => {
             next(err);
           }
         });
-    });
+    })
+    .catch(next);
 };
 
 const updateProfile = (req, res, next) => {
   const { name, about } = req.body;
-  userModel.findByIdAndUpdate(req.user._id, { name, about })
+  userModel.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
     .then((user) => sendUser(res, user))
     .catch((err) => {
       if (err instanceof ValidationError) {
@@ -77,7 +78,7 @@ const updateProfile = (req, res, next) => {
 
 const updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
-  userModel.findByIdAndUpdate(req.user._id, { avatar })
+  userModel.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
     .then((user) => sendUser(res, user))
     .catch((err) => {
       if (err instanceof ValidationError) {
@@ -121,7 +122,7 @@ const login = (req, res, next) => {
 const getUser = (req, res, next) => {
   userModel.findById(req.user._id)
     .then((data) => {
-      res.status(200).send({ data });
+      res.send({ data });
     })
     .catch(next);
 };

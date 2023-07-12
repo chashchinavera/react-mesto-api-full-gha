@@ -19,7 +19,7 @@ const validateUserLogin = celebrate({
 });
 
 const validateUserId = celebrate({
-  body: Joi.object().keys({
+  params: Joi.object().keys({
     userId: Joi.string().required().hex().length(24),
   }),
 });
@@ -38,7 +38,7 @@ const validateUserAvatar = celebrate({
 });
 
 const validateCard = celebrate({
-  body: Joi.object().keys({
+  params: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     link: Joi.string().required().pattern(rule),
   }),

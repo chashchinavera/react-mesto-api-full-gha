@@ -18,7 +18,7 @@ const getCards = (req, res, next) => {
 
 const createCard = (req, res, next) => {
   const { name, link } = req.body;
-  cardModel.create({ name, link, owner: req.params.user_id })
+  cardModel.create({ name, link, owner: req.user._id })
     .then((card) => {
       res.status(CREATED).send({ data: card });
     })
@@ -33,11 +33,9 @@ const createCard = (req, res, next) => {
 
 const deleteCard = (req, res, next) => {
   cardModel.findById(req.params.cardId)
-    .then((card, err) => {
+    .then((card) => {
       if (!card) {
         throw new NotFoundStatusError('Запрашиваемая карточка не найдена');
-      } else if (err instanceof CastError) {
-        next(new BadRequestStatusError('По указанному id карточка не найдена'));
       } else if (req.user._id === card.owner.toString()) {
         return cardModel.findByIdAndRemove(req.params.cardId)
           .then(() => res.status(OK_STATUS).send({ message: 'Карточка удалена' }));
@@ -45,7 +43,11 @@ const deleteCard = (req, res, next) => {
         return next(new ForbiddenStatusError('Вы не можете удалить не ваши карточки'));
       }
     })
-    .catch(next);
+    .catch((err) => {
+      if (err instanceof CastError) {
+        next(new BadRequestStatusError('По указанному id карточка не найдена'));
+      } else next(err);
+    });
 };
 
 const likeCard = (req, res, next) => {
@@ -55,15 +57,17 @@ const likeCard = (req, res, next) => {
     { new: true },
   )
     .populate(['owner', 'likes'])
-    .then((card, err) => {
+    .then((card) => {
       if (!card) {
         throw new NotFoundStatusError('Запрашиваемая карточка не найдена');
-      } else if (err instanceof CastError) {
-        next(new BadRequestStatusError('По указанному id карточка не найдена'));
       }
       res.send({ data: card });
     })
-    .catch(next);
+    .catch((err) => {
+      if (err instanceof CastError) {
+        next(new BadRequestStatusError('По указанному id карточка не найдена'));
+      } else next(err);
+    });
 };
 
 const dislikeCard = (req, res, next) => {
@@ -72,15 +76,17 @@ const dislikeCard = (req, res, next) => {
     { $pull: { likes: req.user._id } },
     { new: true },
   )
-    .then((card, err) => {
+    .then((card) => {
       if (!card) {
         throw new NotFoundStatusError('Запрашиваемая карточка не найдена');
-      } else if (err instanceof CastError) {
-        next(new BadRequestStatusError('По указанному id карточка не найдена'));
       }
       res.send({ data: card });
     })
-    .catch(next);
+    .catch((err) => {
+      if (err instanceof CastError) {
+        next(new BadRequestStatusError('По указанному id карточка не найдена'));
+      } else next(err);
+    });
 };
 
 module.exports = {
