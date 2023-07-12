@@ -89,7 +89,7 @@ class Api {
 
 
 const api = new Api({
-  link: 'https://mesto.chashchinavera.nomoreparties.sbs',
+  link: 'https://mesto.chashchinavera.nomoreparties.sbs/',
   headers: {
     'Content-Type': 'application/json'
   }
