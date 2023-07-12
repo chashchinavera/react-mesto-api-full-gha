@@ -91,7 +91,6 @@ class Api {
 const api = new Api({
   link: 'https://mesto.chashchinavera.nomoreparties.sbs',
   headers: {
-    authorization: '547614fb-6c6c-41a0-81d5-2f6d1a17b0c6',
     'Content-Type': 'application/json'
   }
 });
