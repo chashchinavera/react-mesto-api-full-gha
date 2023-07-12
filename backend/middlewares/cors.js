@@ -7,7 +7,7 @@ const allowedCors = [
 module.exports = (req, res, next) => {
   const { origin } = req.headers;
   const { method } = req;
-  const DEFAULT_ALLOWED_METHODS = 'GET,POST,PATCH,DELETE,PUT,HEAD,';
+  const DEFAULT_ALLOWED_METHODS = 'GET,POST,PATCH,DELETE,PUT,HEAD';
   const requestHeaders = req.headers['access-control-request-headers'];
 
   res.header('Access-Control-Allow-Credentials', true);

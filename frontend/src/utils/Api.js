@@ -91,7 +91,7 @@ class Api {
 const api = new Api({
   link: 'https://mesto.chashchinavera.nomoreparties.sbs/',
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }
 });
 
