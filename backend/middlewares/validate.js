@@ -38,14 +38,14 @@ const validateUserAvatar = celebrate({
 });
 
 const validateCard = celebrate({
-  params: Joi.object().keys({
+  body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     link: Joi.string().required().pattern(rule),
   }),
 });
 
 const validateCardId = celebrate({
-  body: Joi.object().keys({
+  params: Joi.object().keys({
     cardId: Joi.string().required().hex().length(24),
   }),
 });

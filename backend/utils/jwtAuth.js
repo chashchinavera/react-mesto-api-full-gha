@@ -7,7 +7,7 @@ const checkToken = (token) => {
 };
 
 const signToken = (payload) => {
-  return jwt.sign(payload, SECRET_KEY, { expiresIn: '7d' });
+  return jwt.sign(payload, SECRET_KEY, NODE_ENV === 'production' ? SECRET_KEY : 'key', { expiresIn: '7d' });
 };
 
 module.exports = {
