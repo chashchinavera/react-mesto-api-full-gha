@@ -2,8 +2,7 @@ const { checkToken } = require('../utils/jwtAuth');
 const UnauthorizedStatusError = require('../errors/UnauthorizedStatusError');
 
 const auth = (req, res, next) => {
-
-  const token = req.cookies.token;
+  const { token } = req.cookies;
   try {
     const payload = checkToken(token);
 
@@ -12,7 +11,7 @@ const auth = (req, res, next) => {
     };
     next();
   } catch (err) {
-    return next(new UnauthorizedStatusError('Пользователь не авторизован'));
+    next(new UnauthorizedStatusError('Пользователь не авторизован'));
   }
 };
 
