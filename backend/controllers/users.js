@@ -95,9 +95,9 @@ const login = (req, res, next) => {
   userModel.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        next(new UnauthorizedStatusError('Неверный логин или пароль'));
+        return next(new UnauthorizedStatusError('Неверный логин или пароль'));
       } else {
-        Promise.all([user, bcrypt.compare(password, user.password)]);
+        return Promise.all([user, bcrypt.compare(password, user.password)]);
       }
     })
     .then(([user, isEqual]) => {
