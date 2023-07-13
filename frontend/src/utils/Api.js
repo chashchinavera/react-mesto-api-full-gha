@@ -21,7 +21,8 @@ class Api {
   //Получение информации о пользователе
   getUserData() {
     return this._request(`${this._link}users/me`, {
-      headers: this._headers
+      headers: this._headers,
+      credentials: 'include',
     })
   }
 
@@ -40,7 +41,8 @@ class Api {
   //Получение карточек с сервера
   getInitialCards() {
     return this._request(`${this._link}cards`, {
-      headers: this._headers
+      headers: this._headers,
+      credentials: 'include',
     })
   }
 
@@ -49,6 +51,7 @@ class Api {
     return this._request(`${this._link}cards`, {
       method: 'POST',
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({ name, link })
     })
   }
@@ -58,6 +61,7 @@ class Api {
     return this._request(`${this._link}cards/${cardId}`, {
       headers: this._headers,
       method: 'DELETE',
+      credentials: 'include',
     })
   }
 
@@ -66,6 +70,7 @@ class Api {
     return this._request(`${this._link}cards/${cardId}/likes`, {
       headers: this._headers,
       method: 'PUT',
+      credentials: 'include',
     })
   }
 
@@ -74,6 +79,7 @@ class Api {
     return this._request(`${this._link}cards/${cardId}/likes`, {
       headers: this._headers,
       method: 'DELETE',
+      credentials: 'include',
     })
   }
 
@@ -82,6 +88,7 @@ class Api {
     return this._request(`${this._link}users/me/avatar`, {
       headers: this._headers,
       method: 'PATCH',
+      credentials: 'include',
       body: JSON.stringify({ avatar: avatarLink.avatar })
     })
   }
