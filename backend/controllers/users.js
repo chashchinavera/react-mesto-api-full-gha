@@ -113,7 +113,7 @@ const login = (req, res, next) => {
       //   httpOnly: true,
       //   maxAge: 3600000 * 24 * 7,
       // }).send(user.toJSON());
-      res.status(200).send(token);
+      res.status(200).send({token});
     })
 
     .catch(next);

@@ -1,5 +1,5 @@
-// const BASE_URL = 'http://localhost:3001';
-const BASE_URL = 'https://mesto.chashchinavera.nomoreparties.sbs';
+const BASE_URL = 'http://localhost:3001';
+// const BASE_URL = 'https://mesto.chashchinavera.nomoreparties.sbs';
 
 export const register = (email, password) => {
     return fetch(`${BASE_URL}/signup`, {
@@ -12,7 +12,7 @@ export const register = (email, password) => {
         body: JSON.stringify({ email, password }),
     })
         .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
-        .then((data) => data);
+        // .then((data) => data);
 }
 
 export const login = (email, password) => {
