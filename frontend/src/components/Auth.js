@@ -12,7 +12,7 @@ export const register = (email, password) => {
         body: JSON.stringify({ email, password }),
     })
         .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
-        // .then((data) => data);
+        .then((data) => data);
 }
 
 export const login = (email, password) => {
@@ -36,7 +36,6 @@ export const checkToken = (token) => {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
         },
     })
         .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))

@@ -107,9 +107,6 @@ class Api {
 const api = new Api({
   link: 'http://localhost:3001/',
   // link: 'https://mesto.chashchinavera.nomoreparties.sbs/',
-  headers: {
-    'Content-Type': 'application/json',
-  }
 });
 
 export default api;
