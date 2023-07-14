@@ -31,6 +31,7 @@ class Api {
     return this._request(`${this._link}users/me`, {
       method: 'PATCH',
       headers: this._headers,
+      credentials: 'include',
       body: JSON.stringify({
         name: profileData.name,
         about: profileData.about
@@ -96,8 +97,10 @@ class Api {
 
 
 const api = new Api({
+  // link: 'http://localhost:3001/',
   link: 'https://mesto.chashchinavera.nomoreparties.sbs/',
   headers: {
+    // authorization: `Bearer ${token}`,
     'Content-Type': 'application/json',
   }
 });

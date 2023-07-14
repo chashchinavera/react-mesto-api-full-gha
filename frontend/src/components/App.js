@@ -39,8 +39,8 @@ function App() {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const jwt = localStorage.getItem("jwt");
-
+    const jwt = localStorage.getItem('jwt');
+    
     function handleLogin() {
         setLoggedIn(true);
     }
@@ -98,7 +98,7 @@ function App() {
 
     useEffect(() => {
         handleTokenCheck();
-    }, [location.pathname]);
+    }, []);
 
 
     useEffect(() => {

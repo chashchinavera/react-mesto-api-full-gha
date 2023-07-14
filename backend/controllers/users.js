@@ -109,10 +109,11 @@ const login = (req, res, next) => {
       const token = signToken({ _id: user._id });
       console.log(token);
 
-      res.cookie('token', token, {
-        httpOnly: true,
-        maxAge: 3600000 * 24 * 7,
-      }).send({ email });
+      // res.cookie('token', token, {
+      //   httpOnly: true,
+      //   maxAge: 3600000 * 24 * 7,
+      // }).send(user.toJSON());
+      res.status(200).send(token);
     })
 
     .catch(next);
