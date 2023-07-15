@@ -91,8 +91,8 @@ class Api {
 
 
 const api = new Api({
-  // link: 'http://localhost:3000/',
-  link: 'https://mesto.chashchinavera.nomoreparties.sbs/',
+  link: 'http://localhost:3000/',
+  // link: 'https://mesto.chashchinavera.nomoreparties.sbs/',
   headers: {
     'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
     'Content-Type': 'application/json',
