@@ -119,7 +119,7 @@ const login = (req, res, next) => {
 const getUser = (req, res, next) => {
   userModel.findById(req.user._id)
     .then((user) => {
-      res.send( user );
+      res.send(user);
     })
     .catch(next);
 };
