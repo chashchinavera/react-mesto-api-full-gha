@@ -1,8 +1,16 @@
 import React from 'react';
 import Card from './Card.js';
-import CurrentUserContext from '../contexts/CurrentUserContext.js';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-function Main(props) {
+function Main({
+  onEditAvatar,
+  onEditProfile,
+  onAddPlace,
+  onImage,
+  onCardLike,
+  onCardDelete,
+  cards
+}) {
   const currentUser = React.useContext(CurrentUserContext);
 
   return (
@@ -10,23 +18,24 @@ function Main(props) {
       <section className="profile content__section">
         <div className="profile__avatar">
           <img className="profile__image" src={currentUser.avatar} alt="Аватар" />
-          <button type="button" className="profile__redact" aria-label="редактирование аватара" onClick={props.onEditAvatar} />
+          <button type="button" className="profile__redact" aria-label="редактирование аватара" onClick={onEditAvatar} />
         </div>
         <div className="profile__info">
           <h1 className="profile__name">{currentUser.name}</h1>
-          <button type="button" className="profile__edit" aria-label="редактирование профиля" onClick={props.onEditProfile} />
+          <button type="button" className="profile__edit" aria-label="редактирование профиля" onClick={onEditProfile} />
           <p className="profile__status">{currentUser.about}</p>
         </div>
-        <button type="button" className="profile__add" aria-label="добавление карточки" onClick={props.onAddPlace} />
+        <button type="button" className="profile__add" aria-label="добавление карточки" onClick={onAddPlace} />
       </section>
       <section className="elements content__section" aria-label="Карточки">
-        {props.cards.map((card) => (
+        {cards.map((item) => (
           <Card
-            card={card}
-            onCardClick={props.onImage}
-            onCardLike={props.onCardLike}
-            onCardDelete={props.onCardDelete}
-            key={card._id}
+            card={item}
+            onCardClick={onImage}
+            onCardLike={onCardLike}
+            onCardDelete={onCardDelete}
+            key={item._id}
+            currentUser={currentUser}
           />
         ))}
       </section>

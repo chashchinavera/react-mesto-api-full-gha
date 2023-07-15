@@ -25,6 +25,14 @@ class Api {
       headers: this._headers,
     })
   }
+  
+  //Получение карточек с сервера
+  getInitialCards() {
+    return this._request(`${this._link}cards`, {
+      method: "GET",
+      headers: this._headers,
+    })
+  }
 
   // Отправка информации о пользователе на сервер
   sendUserData(profileData) {
@@ -35,14 +43,6 @@ class Api {
         name: profileData.name,
         about: profileData.about
       })
-    })
-  }
-
-  //Получение карточек с сервера
-  getInitialCards() {
-    return this._request(`${this._link}cards`, {
-      method: "GET",
-      headers: this._headers,
     })
   }
 

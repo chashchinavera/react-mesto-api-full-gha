@@ -7,13 +7,14 @@ import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
 import api from '../utils/Api.js';
-import CurrentUserContext from '../contexts/CurrentUserContext.js';
-import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Login from './Login.js';
 import Register from './Register.js';
 import ProctectedRoute from './ProctectedRoute.js'
 import InfoTooltip from './InfoTooltip.js';
 import * as Authorisation from './Auth.js';
+
 
 function App() {
     const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
@@ -38,25 +39,27 @@ function App() {
     });
 
     const navigate = useNavigate();
+    const jwt = localStorage.getItem('jwt');
 
     function handleLogin() {
         setLoggedIn(true);
     }
 
     function handleTokenCheck() {
-        if (localStorage.getItem('jwt')) {
-            const jwt = localStorage.getItem('jwt');
+        if (jwt) {
             Authorisation.checkToken(jwt)
                 .then((res) => {
-                    handleLogin();
-                    setEmail(res.email);
-                    navigate("/", { replace: true });
+                    if (res) {
+                        handleLogin();
+                        setEmail(res.email);
+                        navigate("/");
+                    }
                 })
                 .catch((err) => console.log(err));
         }
     }
 
-    function handleSignOut() {
+    function signOut() {
         localStorage.removeItem('jwt');
         navigate('/signin');
         setLoggedIn(false);
@@ -80,11 +83,13 @@ function App() {
     function handleLoginSubmit(evt) {
         evt.preventDefault();
         Authorisation.login(formLoginValue.email, formLoginValue.password)
-            .then(() => {
-                setFormLoginValue({ email: '', password: '' });
-                setEmail(formLoginValue.email);
-                handleLogin();
-                navigate('/');
+            .then((res) => {
+                if (res.jwt) {
+                    setFormLoginValue({ email: '', password: '' });
+                    setEmail(formLoginValue.email);
+                    handleLogin();
+                    navigate('/');
+                }
             })
             .catch((err) => {
                 setIsSuccess(false);
@@ -103,7 +108,7 @@ function App() {
             Promise.all([api.getUserData(), api.getInitialCards()])
                 .then(([currentUser, cards]) => {
                     setCurrentUser(currentUser);
-                    setCards(cards);
+                    setCards(cards.reverse());
                 })
                 .catch(err => {
                     console.log(err);
@@ -175,15 +180,15 @@ function App() {
     }
 
     function handleCardLike(card) {
-        const isLiked = card.likes.some(i => i._id === currentUser._id);
+        const isLiked = card.likes.some((i) => i === currentUser._id);
         if (!isLiked) {
-            api.putCardLike(card._id, !isLiked)
+            api.putCardLike(card._id)
                 .then((newCard) => {
                     setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
                 })
                 .catch((err) => console.log(err));
         } else {
-            api.removeCardLike(card._id, !isLiked)
+            api.removeCardLike(card._id)
                 .then((newCard) => {
                     setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
                 })
@@ -211,12 +216,12 @@ function App() {
     }
 
     return (
-        <div className="page">
-            <CurrentUserContext.Provider value={currentUser}>
+        <CurrentUserContext.Provider value={currentUser}>
+            <div className="page">
                 <Header
                     loggedIn={loggedIn}
                     email={email}
-                    onSignOut={handleSignOut}
+                    onSignOut={signOut}
                 />
                 <Routes>
                     <Route
@@ -287,8 +292,9 @@ function App() {
                     successText="Вы успешно зарегистрировались!"
                     errorText="Что-то пошло не так! Попробуйте ещё раз."
                 />
-            </CurrentUserContext.Provider>
-        </div >
+            </div >
+        </CurrentUserContext.Provider >
+
     );
 }
 

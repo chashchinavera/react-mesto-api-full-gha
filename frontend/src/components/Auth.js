@@ -4,7 +4,6 @@ const BASE_URL = 'http://localhost:3000';
 export const register = (email, password) => {
     return fetch(`${BASE_URL}/signup`, {
         method: "POST",
-        // credentials: 'include',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -17,7 +16,6 @@ export const register = (email, password) => {
 export const login = (email, password) => {
     return fetch(`${BASE_URL}/signin`, {
         method: "POST",
-        // credentials: 'include',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -35,7 +33,6 @@ export const login = (email, password) => {
 export const checkToken = (token) => {
     return fetch(`${BASE_URL}/users/me`, {
         method: "GET",
-        // credentials: 'include',
         headers: {
             'Accept': 'application/json',
             'Authorization': `Bearer ${token}`,

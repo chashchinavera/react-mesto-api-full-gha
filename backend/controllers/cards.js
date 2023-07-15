@@ -11,7 +11,7 @@ const {
 const getCards = (req, res, next) => {
   cardModel.find({})
     .then((cards) => {
-      res.send({ data: cards });
+      res.send(cards);
     })
     .catch(next);
 };
@@ -61,7 +61,7 @@ const likeCard = (req, res, next) => {
       if (!card) {
         throw new NotFoundStatusError('Запрашиваемая карточка не найдена');
       }
-      res.send({ data: card });
+      res.send(card);
     })
     .catch((err) => {
       if (err instanceof CastError) {

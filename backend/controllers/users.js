@@ -11,7 +11,7 @@ const { CREATED, OK_STATUS } = require('../utils/constants');
 const getUsers = (req, res, next) => {
   userModel.find({})
     .then((users) => {
-      res.send({ data: users });
+      res.send({ users });
     })
     .catch(next);
 };
@@ -112,7 +112,7 @@ const login = (req, res, next) => {
       //   httpOnly: true,
       //   maxAge: 3600000 * 24 * 7,
       // }).send(user.toJSON());
-      res.status(OK_STATUS).send({ token });
+      res.status(OK_STATUS).send({ jwt: token });
     })
 
     .catch(next);
@@ -120,8 +120,8 @@ const login = (req, res, next) => {
 
 const getUser = (req, res, next) => {
   userModel.findById(req.user._id)
-    .then((data) => {
-      res.send({ data });
+    .then((user) => {
+      res.send( user );
     })
     .catch(next);
 };
