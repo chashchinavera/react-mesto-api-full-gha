@@ -106,10 +106,6 @@ const login = (req, res, next) => {
 
       const token = signToken({ _id: user._id });
 
-      // res.cookie('token', token, {
-      //   httpOnly: true,
-      //   maxAge: 3600000 * 24 * 7,
-      // }).send(user.toJSON());
       res.status(OK_STATUS).send({ jwt: token });
     })
 
