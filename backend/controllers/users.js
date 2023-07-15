@@ -96,9 +96,7 @@ const login = (req, res, next) => {
     .then((user) => {
       if (!user) {
         return next(new UnauthorizedStatusError('Неверный логин или пароль'));
-      } else {
-        return Promise.all([user, bcrypt.compare(password, user.password)]);
-      }
+      } return Promise.all([user, bcrypt.compare(password, user.password)]);
     })
     .then(([user, isEqual]) => {
       if (!isEqual) {
