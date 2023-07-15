@@ -2,6 +2,7 @@ const allowedCors = [
   'https://mesto.chashchinavv.nomoredomains.work',
   'http://mesto.chashchinavv.nomoredomains.work',
   'http://localhost:3000',
+  'http://localhost:3001',
 ];
 
 module.exports = (req, res, next) => {

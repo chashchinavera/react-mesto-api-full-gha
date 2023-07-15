@@ -6,7 +6,7 @@ const ConflictStatusError = require('../errors/ConflictStatusError');
 const BadRequestStatusError = require('../errors/BadRequestStatusError');
 const UnauthorizedStatusError = require('../errors/UnauthorizedStatusError');
 const sendUser = require('../utils/sendUser');
-const { CREATED } = require('../utils/constants');
+const { CREATED, OK_STATUS } = require('../utils/constants');
 
 const getUsers = (req, res, next) => {
   userModel.find({})
@@ -107,13 +107,12 @@ const login = (req, res, next) => {
       }
 
       const token = signToken({ _id: user._id });
-      console.log(token);
 
       // res.cookie('token', token, {
       //   httpOnly: true,
       //   maxAge: 3600000 * 24 * 7,
       // }).send(user.toJSON());
-      res.status(200).send({token});
+      res.status(OK_STATUS).send({ token });
     })
 
     .catch(next);

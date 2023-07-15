@@ -38,28 +38,25 @@ function App() {
     });
 
     const navigate = useNavigate();
-    const location = useLocation();
-    const jwt = localStorage.getItem('jwt');
 
     function handleLogin() {
         setLoggedIn(true);
     }
 
     function handleTokenCheck() {
-        if (jwt) {
+        if (localStorage.getItem('jwt')) {
+            const jwt = localStorage.getItem('jwt');
             Authorisation.checkToken(jwt)
                 .then((res) => {
-                    if (res) {
-                        handleLogin();
-                        setEmail(res.email);
-                        navigate("/");
-                    }
+                    handleLogin();
+                    setEmail(res.email);
+                    navigate("/", { replace: true });
                 })
                 .catch((err) => console.log(err));
         }
     }
 
-    function signOut() {
+    function handleSignOut() {
         localStorage.removeItem('jwt');
         navigate('/signin');
         setLoggedIn(false);
@@ -84,10 +81,10 @@ function App() {
         evt.preventDefault();
         Authorisation.login(formLoginValue.email, formLoginValue.password)
             .then(() => {
-                    setFormLoginValue({ email: '', password: '' });
-                    setEmail(formLoginValue.email);
-                    handleLogin();
-                    navigate('/');
+                setFormLoginValue({ email: '', password: '' });
+                setEmail(formLoginValue.email);
+                handleLogin();
+                navigate('/');
             })
             .catch((err) => {
                 setIsSuccess(false);
@@ -98,7 +95,7 @@ function App() {
 
     useEffect(() => {
         handleTokenCheck();
-    }, [location.pathname]);
+    }, []);
 
 
     useEffect(() => {
@@ -219,7 +216,7 @@ function App() {
                 <Header
                     loggedIn={loggedIn}
                     email={email}
-                    onSignOut={signOut}
+                    onSignOut={handleSignOut}
                 />
                 <Routes>
                     <Route

@@ -2,7 +2,7 @@ const { checkToken } = require('../utils/jwtAuth');
 const UnauthorizedStatusError = require('../errors/UnauthorizedStatusError');
 
 const auth = (req, res, next) => {
-  const token = req.headers.authorization.replace('Bearer ', '');
+  const token = req.headers.authorization;
 
   // const { token } = req.cookies.jwt;
   try {
