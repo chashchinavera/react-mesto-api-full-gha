@@ -20,7 +20,7 @@ const createCard = (req, res, next) => {
   const { name, link } = req.body;
   cardModel.create({ name, link, owner: req.user._id })
     .then((card) => {
-      res.status(CREATED).send({ data: card });
+      res.status(CREATED).send(card);
     })
     .catch((err) => {
       if (err instanceof ValidationError) {
