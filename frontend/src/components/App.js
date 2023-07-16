@@ -187,7 +187,9 @@ function App() {
         } else {
             api.putCardLike(card._id, jwt)
                 .then((newCard) => {
-                    setCards((state) => state.filter((c) => c._id === card._id ? newCard : c));
+                    console.log(newCard)
+                    setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+
                 })
                 .catch((err) => console.log(err));
         }

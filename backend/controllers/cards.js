@@ -49,12 +49,9 @@ const deleteCard = (req, res, next) => {
 };
 
 const likeCard = (req, res, next) => {
-  const { cardId } = req.params;
-  const { userId } = req.user;
-
   cardModel.findByIdAndUpdate(
-    cardId,
-    { $addToSet: { likes: userId } },
+    req.params.cardId,
+    { $addToSet: { likes: req.user._id } },
     { new: true },
   )
     .populate(['owner', 'likes'])
