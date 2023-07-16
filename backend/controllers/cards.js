@@ -10,7 +10,7 @@ const {
 
 const getCards = (req, res, next) => {
   cardModel.find({})
-    .then((cards) => {
+  .then((cards) => {
       res.send(cards);
     })
     .catch(next);
@@ -54,7 +54,6 @@ const likeCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
-    .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
         throw new NotFoundStatusError('Запрашиваемая карточка не найдена');
