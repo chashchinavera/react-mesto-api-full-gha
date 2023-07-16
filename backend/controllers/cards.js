@@ -10,7 +10,7 @@ const {
 
 const getCards = (req, res, next) => {
   cardModel.find({})
-  .then((cards) => {
+    .then((cards) => {
       res.send(cards);
     })
     .catch(next);
