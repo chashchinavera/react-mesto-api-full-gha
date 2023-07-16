@@ -18,13 +18,10 @@ const getCards = (req, res, next) => {
 
 const createCard = (req, res, next) => {
   const { name, link } = req.body;
-  const { owner } = req.user;
-  cardModel.create({ name, link, owner: user._id })
-    .then((card) => {
-
-      res.status(CREATED).send(card);y
-
-    })
+  cardModel.create({ name, link, owner: req.user._id })
+    .then((card) =>
+      res.status(CREATED).send(card)
+    )
     .catch((err) => {
       if (err instanceof ValidationError) {
         next(new BadRequestStatusError('Переданы некорректные данные'));

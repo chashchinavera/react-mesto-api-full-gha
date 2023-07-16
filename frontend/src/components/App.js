@@ -181,7 +181,6 @@ function App() {
         if (isLiked) {
             api.removeCardLike(card._id, jwt)
                 .then((newCard) => {
-                    console.log(newCard)
                     setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
                 })
                 .catch((err) => console.log(err));
