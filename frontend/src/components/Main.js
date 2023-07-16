@@ -12,7 +12,6 @@ function Main({
   cards
 }) {
   const currentUser = React.useContext(CurrentUserContext);
-
   return (
     <main className="content page__content">
       <section className="profile content__section">
@@ -35,7 +34,6 @@ function Main({
             onCardLike={onCardLike}
             onCardDelete={onCardDelete}
             key={item._id}
-            currentUser={currentUser}
           />
         ))}
       </section>

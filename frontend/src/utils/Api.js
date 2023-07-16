@@ -19,26 +19,35 @@ class Api {
   }
 
   //Получение информации о пользователе
-  getUserData() {
+  getUserData(jwt) {
     return this._request(`${this._link}users/me`, {
       method: "GET",
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${jwt}`,
+        'Content-Type': 'application/json',
+      },
     })
   }
   
   //Получение карточек с сервера
-  getInitialCards() {
+  getInitialCards(jwt) {
     return this._request(`${this._link}cards`, {
       method: "GET",
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${jwt}`,
+        'Content-Type': 'application/json',
+      },
     })
   }
 
   // Отправка информации о пользователе на сервер
-  sendUserData(profileData) {
+  sendUserData(profileData, jwt) {
     return this._request(`${this._link}users/me`, {
       method: 'PATCH',
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${jwt}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         name: profileData.name,
         about: profileData.about
@@ -47,43 +56,58 @@ class Api {
   }
 
   //Добавление новой карточки
-  addNewCard({ name, link}) {
+  addNewCard({ name, link}, jwt) {
     return this._request(`${this._link}cards`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${jwt}`,
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({ name, link })
     })
   }
 
   // Удаление карточки с сервера
-  deleteCard(cardId) {
+  deleteCard(cardId, jwt) {
     return this._request(`${this._link}cards/${cardId}`, {
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${jwt}`,
+        'Content-Type': 'application/json',
+      },
       method: 'DELETE',
     })
   }
 
   // Отправка лайка на сервер
-  putCardLike(cardId) {
+  putCardLike(cardId, jwt) {
     return this._request(`${this._link}cards/${cardId}/likes`, {
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${jwt}`,
+        'Content-Type': 'application/json',
+      },
       method: 'PUT',
     })
   }
 
   // Удаление лайка на сервере
-  removeCardLike(cardId) {
+  removeCardLike(cardId, jwt) {
     return this._request(`${this._link}cards/${cardId}/likes`, {
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${jwt}`,
+        'Content-Type': 'application/json',
+      },
       method: 'DELETE',
     })
   }
 
   // Отправка информации об аватаре на сервер
-  sendAvatarData(avatarLink) {
+  sendAvatarData(avatarLink, jwt) {
     return this._request(`${this._link}users/me/avatar`, {
-      headers: this._headers,
-      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${jwt}`,
+        'Content-Type': 'application/json',
+      },
+          method: 'PATCH',
       body: JSON.stringify({ avatar: avatarLink.avatar })
     })
   }
@@ -93,10 +117,6 @@ class Api {
 const api = new Api({
   // link: 'http://localhost:3000/',
   link: 'https://mesto.chashchinavera.nomoreparties.sbs/',
-  headers: {
-    'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-    'Content-Type': 'application/json',
-  }
 });
 
 export default api;

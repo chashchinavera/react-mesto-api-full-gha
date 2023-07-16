@@ -9,10 +9,8 @@ function Card({
 }) {
     const currentUser = useContext(CurrentUserContext);
 
-    const isOwn = card.owner === currentUser._id;
-    const isLiked = card.likes.some(
-        (i) => i === currentUser._id
-    );
+    const isOwn = currentUser._id === card.owner;
+    const isLiked = card.likes.some(i => i === currentUser._id);
 
     function handleClick() {
         onCardClick(card);
@@ -27,8 +25,7 @@ function Card({
     };
 
     const cardLikeButtonClassName = (
-        `element__like_button ${isLiked && 'element__like_active'
-        }`
+        `element__like_button ${isLiked && 'element__like_active'}`
     );
 
     return (
@@ -39,14 +36,14 @@ function Card({
                 alt={card.name}
                 onClick={handleClick}
             />
-            {(isOwn &&
+            {isOwn &&
                 <button
                     type="button"
                     className="element__delete"
                     aria-label="Удалить"
                     onClick={handleDeleteCard}
                 />
-            )}
+            }
             <div className="element__info">
                 <h2 className="element__title">{card.name}</h2>
                 <div className="element__like">

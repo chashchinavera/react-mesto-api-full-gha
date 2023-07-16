@@ -39,30 +39,25 @@ function App() {
     });
 
     const navigate = useNavigate();
-    const jwt = localStorage.getItem('jwt');
-
-    function handleLogin() {
-        setLoggedIn(true);
-    }
+    const jwt = localStorage.getItem('userId');
 
     function handleTokenCheck() {
         if (jwt) {
             Authorisation.checkToken(jwt)
                 .then((res) => {
-                    if (res) {
-                        handleLogin();
-                        setEmail(res.email);
-                        navigate("/");
-                    }
+                    setLoggedIn(true);
+                    setEmail(res.email);
+                    navigate("/");
                 })
                 .catch((err) => console.log(err));
         }
     }
 
     function signOut() {
-        localStorage.removeItem('jwt');
+        localStorage.clear('userId');
         navigate('/signin');
         setLoggedIn(false);
+        console.log(currentUser);
     }
 
     function handleRegisterSubmit(evt) {
@@ -85,9 +80,10 @@ function App() {
         Authorisation.login(formLoginValue.email, formLoginValue.password)
             .then((res) => {
                 if (res.jwt) {
+                    localStorage.setItem('userId', res.jwt);
                     setFormLoginValue({ email: '', password: '' });
                     setEmail(formLoginValue.email);
-                    handleLogin();
+                    setLoggedIn(true);
                     navigate('/');
                 }
             })
@@ -102,10 +98,9 @@ function App() {
         handleTokenCheck();
     }, []);
 
-
     useEffect(() => {
         if (loggedIn) {
-            Promise.all([api.getUserData(), api.getInitialCards()])
+            Promise.all([api.getUserData(jwt), api.getInitialCards(jwt)])
                 .then(([currentUser, cards]) => {
                     setCurrentUser(currentUser);
                     setCards(cards.reverse());
@@ -136,9 +131,10 @@ function App() {
 
     function handleUpdateUser(data) {
         setIsLoading(true);
-        api.sendUserData(data)
-            .then((result) => {
-                setCurrentUser(result);
+        api.sendUserData(data, jwt)
+            .then(({ data }) => {
+                const { name, about } = data;
+                setCurrentUser({ ...currentUser, name: name, about: about });
                 closeAllPopups();
             })
             .catch((err) => {
@@ -151,9 +147,10 @@ function App() {
 
     function handleUpdateAvatar(data) {
         setIsLoading(true);
-        api.sendAvatarData(data)
-            .then((result) => {
-                setCurrentUser(result);
+        api.sendAvatarData(data, jwt)
+            .then(({ data }) => {
+                const { avatar } = data;
+                setCurrentUser({ ...currentUser, avatar: avatar });
                 closeAllPopups();
             })
             .catch((err) => {
@@ -166,7 +163,7 @@ function App() {
 
     function handleAddPlaceSubmit(data) {
         setIsLoading(true);
-        api.addNewCard(data)
+        api.addNewCard(data, jwt)
             .then((result) => {
                 setCards([result, ...cards]);
                 closeAllPopups();
@@ -180,25 +177,25 @@ function App() {
     }
 
     function handleCardLike(card) {
-        const isLiked = card.likes.some((i) => i === currentUser._id);
-        if (!isLiked) {
-            api.putCardLike(card._id)
+        const isLiked = card.likes.some(i => i === currentUser._id);
+        if (isLiked) {
+            api.removeCardLike(card._id, jwt)
                 .then((newCard) => {
+                    console.log(newCard)
                     setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
                 })
                 .catch((err) => console.log(err));
         } else {
-            api.removeCardLike(card._id)
+            api.putCardLike(card._id, jwt)
                 .then((newCard) => {
-                    setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+                    setCards((state) => state.filter((c) => c._id === card._id ? newCard : c));
                 })
                 .catch((err) => console.log(err));
         }
     }
 
     function handleCardDelete(card) {
-        api
-            .deleteCard(card._id)
+        api.deleteCard(card._id, jwt)
             .then(() => {
                 setCards((state) => state.filter((c) => c._id !== card._id));
             })

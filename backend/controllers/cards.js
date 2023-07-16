@@ -18,9 +18,12 @@ const getCards = (req, res, next) => {
 
 const createCard = (req, res, next) => {
   const { name, link } = req.body;
-  cardModel.create({ name, link, owner: req.user._id })
+  const { owner } = req.user;
+  cardModel.create({ name, link, owner: user._id })
     .then((card) => {
-      res.status(CREATED).send(card);
+
+      res.status(CREATED).send(card);y
+
     })
     .catch((err) => {
       if (err instanceof ValidationError) {
@@ -51,9 +54,12 @@ const deleteCard = (req, res, next) => {
 };
 
 const likeCard = (req, res, next) => {
+  const { cardId } = req.params;
+  const { userId } = req.user;
+
   cardModel.findByIdAndUpdate(
-    req.params.cardId,
-    { $addToSet: { likes: req.user._id } },
+    cardId,
+    { $addToSet: { likes: userId } },
     { new: true },
   )
     .populate(['owner', 'likes'])
