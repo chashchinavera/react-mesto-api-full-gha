@@ -13,6 +13,7 @@
 5. [Mesto (JS)](https://github.com/chashchinavera/mesto)
 
 ## Ссылки на проект
+***
 
 IP-адрес: 158.160.61.184
 
