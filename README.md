@@ -12,12 +12,3 @@
 3. [Mesto (React, регистрация и авторизация)](https://github.com/chashchinavera/react-mesto-auth)
 4. [Mesto (React)](https://github.com/chashchinavera/mesto-react)
 5. [Mesto (JS)](https://github.com/chashchinavera/mesto)
-
-### **Ссылки на проект**
-***
-
-IP-адрес: 158.160.58.249
-
-Frontend:  https://mesto.chashchinavv.nomoredomains.work/
-
-Backend: https://mesto.chashchinavera.nomoreparties.sbs/
