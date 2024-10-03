@@ -1,7 +1,6 @@
-[![Tests](../../actions/workflows/tests-13-sprint.yml/badge.svg)](../../actions/workflows/tests-13-sprint.yml) [![Tests](../../actions/workflows/tests-14-sprint.yml/badge.svg)](../../actions/workflows/tests-14-sprint.yml)
 # Проект Mesto фронтенд + бэкенд
 
-[Ссылка на репозиторий](https://github.com/chashchinavera/express-mesto-gha)
+[Ссылка на репозиторий](https://github.com/chashchinavera/react-mesto-api-full-gha)
 
 ## Директории
 
@@ -11,7 +10,20 @@
   
 Остальные директории вспомогательные, создаются при необходимости разработчиком
 
-## Запуск проекта
-
-`npm run start` — запускает сервер   
-`npm run dev` — запускает сервер с hot-reload
+### **Как посмотреть проект**
+***
+```
+$  git clone https://github.com/chashchinavera/react-mesto-api-full-gha.git
+```
+```
+$  cd react-mesto-api-full-gha
+```
+```
+$  cd backend
+```
+```
+$  npm i 
+```
+```
+$  npm run dev
+```

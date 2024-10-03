@@ -1,7 +1,7 @@
-const BASE_URL = 'https://mesto.chashchinavera.nomoreparties.sbs';
+const BASE_URL = 'http://localhost:3001/';
 
 export const register = (email, password) => {
-    return fetch(`${BASE_URL}/signup`, {
+    return fetch(`${BASE_URL}signup`, {
         method: "POST",
         headers: {
             'Accept': 'application/json',
@@ -13,7 +13,7 @@ export const register = (email, password) => {
 }
 
 export const login = (email, password) => {
-    return fetch(`${BASE_URL}/signin`, {
+    return fetch(`${BASE_URL}signin`, {
         method: "POST",
         headers: {
             'Accept': 'application/json',
@@ -30,7 +30,7 @@ export const login = (email, password) => {
           })}
 
 export const checkToken = (token) => {
-    return fetch(`${BASE_URL}/users/me`, {
+    return fetch(`${BASE_URL}users/me`, {
         method: "GET",
         headers: {
             'Accept': 'application/json',

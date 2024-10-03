@@ -1,18 +1,32 @@
 Mesto React
 Проект Место - проектная работа по профессии веб-разработчик курса Яндекс.Практикум.
 
-Ссылка на проект: https://github.com/chashchinavera/mesto-react
-
-Задача: 
-Написать и развернуть фронтенд для учебного проекта Mesto.
-
+Ссылка на проект: https://github.com/chashchinavera/react-mesto-api-full-gha
 
 О проекте:
 Одностраничный сайт, адаптивен под мобильные устройства. В web-приложении можно добавлять, удалять и лайкать карточки с фотографиями, редактировать данные профиля.
-Проект реализован на React.
+
 
 Стек:
     HTML, CSS
     Javascript
     React
-    Node
+    Node.js
+
+### **Как посмотреть проект**
+***
+```
+$  git clone https://github.com/chashchinavera/react-mesto-api-full-gha.git
+```
+```
+$  cd react-mesto-api-full-gha
+```
+```
+$  cd frontend
+```
+```
+$  npm i 
+```
+```
+$  npm start
+```

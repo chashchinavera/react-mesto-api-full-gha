@@ -115,7 +115,7 @@ class Api {
 
 
 const api = new Api({
-  link: 'https://mesto.chashchinavera.nomoreparties.sbs/',
+  link: 'http://localhost:3001/',
 });
 
 export default api;
